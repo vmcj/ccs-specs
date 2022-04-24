@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        ref: gh-pages
+        with:
+          ref: gh-pages
       - name: Build the other branches
         run: ./update_docs.sh
