@@ -1,4 +1,4 @@
-name: CI
+name: CJ
 on:
   push:
     branches: [ master ]
