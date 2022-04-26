@@ -23,7 +23,7 @@ jobs:
       - name: Get the other branches
         run: |
           for version in $(cat versions.json | jq -r -c '.[]'); do
-            git checkout -t origin/${version}
+            git checkout -t ${version}
           done; git checkout gh-pages
       - name: Build the other branches
         run: ./update_docs.sh
