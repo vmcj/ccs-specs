@@ -9,12 +9,24 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: master
+      - name: Check if dependencies are there
+        run: |
+          sudo apt update
+          sudo apt-get install ruby-full build-essential zlib1g-dev
+      - name: Pre setup gem locations
+        run: |
+          echo '# Install Ruby Gems to ~/gems' >> ~/.bashrc
+          echo 'export GEM_HOME="$HOME/gems"' >> ~/.bashrc
+          echo 'export PATH="$HOME/gems/bin:$PATH"' >> ~/.bashrc
+          source ~/.bashrc
+      - name: Install jekyll
+        run: gem install jekyll bundler
       - uses: actions/checkout@v3
         with:
           ref: gh-pages
-          fetch-depth: 0
       - name: Build the other branches
         run: ./update_docs.sh
+      #- uses: actions/checkout@v3
+      #  with:
+      #    ref: gh-pages
+      #    fetch-depth: 0
