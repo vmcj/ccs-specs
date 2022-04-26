@@ -20,6 +20,11 @@ jobs:
           ref: gh-pages
       - name: Get the actual dependencies
         run: sudo bundle install
+      - name: Get the other branches
+        run: |
+          for version in $(cat versions.json | jq -r -c '.[]'); do
+            git checkout -t origin/${version}
+          done; git checkout gh-pages
       - name: Build the other branches
         run: ./update_docs.sh
       - name: Push the new changes
