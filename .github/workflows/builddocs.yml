@@ -26,6 +26,14 @@ jobs:
           ref: gh-pages
       - name: Build the other branches
         run: ./update_docs.sh
+      - name: Push the new changes
+        run: |
+          git config --global user.name 'BuildBot (GHA)'
+          git config --global user.email 'clics@icpc.global'
+          #git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+          #git checkout "${GITHUB_REF:11}"
+          git commit -am "Automated report"
+          git push
       #- uses: actions/checkout@v3
       #  with:
       #    ref: gh-pages
