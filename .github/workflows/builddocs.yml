@@ -20,11 +20,15 @@ jobs:
           ref: gh-pages
       - name: Get the actual dependencies
         run: sudo bundle install
+      - name: Do some debugging
+        run: |
+          git status
+          git branch -a
       - name: Get the other branches
         run: |
           for version in $(cat versions.json | jq -r -c '.[]'); do
             echo ${version}
-            git checkout -t ${version}
+            git checkout ${version}
           done; git checkout gh-pages
       - name: Build the other branches
         run: ./update_docs.sh
